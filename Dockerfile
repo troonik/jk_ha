@@ -1,25 +1,39 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:stable
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:18.1.0
 # hadolint ignore=DL3006
-FROM ${BUILD_FROM}
+FROM ${BUILD_FROM} AS builder
 
-# Copy Node-RED package.json
+# Copy package.json
 COPY package.json /opt/
 
-# Set workdir
 WORKDIR /opt
 
-# Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# Setup base
 RUN \
-    apk add --no-cache --virtual .build-dependencies \
-        g++ \
-        make \
+    apk add --no-cache \
+        nodejs \
+        npm \
         python3 \
-        py3-pip \
-        linux-headers \
-    && apk add --no-cache \
+        make \
+        g++ \
+    && npm install \
+        --no-audit \
+        --no-fund \
+        --no-update-notifier \
+        --omit=dev \
+        --unsafe-perm \
+    && npm cache clear --force \
+    && rm -rf /root/.npm
+
+# Final stage
+FROM ${BUILD_FROM}
+
+# Copy Node-RED from builder
+COPY --from=builder /opt/node_modules /opt/node_modules
+COPY package.json /opt/
+
+WORKDIR /opt
+
+RUN \
+    apk add --no-cache \
         git \
         icu-data-full \
         nginx \
@@ -31,29 +45,10 @@ RUN \
         iproute2 \
         bash \
         mosquitto-clients \
-    && npm config set fetch-timeout 300000 \
-    && npm config set fetch-retry-mintimeout 20000 \
-    && npm config set fetch-retry-maxtimeout 120000 \
-    && npm config set fetch-retries 5 \
-    && npm config set registry https://registry.npmjs.org/ \
-    && npm install \
-        --no-audit \
-        --no-fund \
-        --no-update-notifier \
-        --omit=dev \
-        --unsafe-perm \
-        --fetch-timeout=300000 \
-        --fetch-retry-mintimeout=20000 \
-        --fetch-retry-maxtimeout=120000 \
-    && npm rebuild --build-from-source @serialport/bindings-cpp \
-    && npm cache clear --force \
     && echo -e "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
-    && apk del --no-cache --purge .build-dependencies \
     && rm -fr \
-        /etc/nginx \
-        /root/.cache \
-        /root/.npm \
-        /root/.nrpmrc
+        /etc/nginx
+
 # Copy root filesystem
 COPY rootfs /
 
@@ -63,11 +58,9 @@ RUN chmod +x \
     /etc/s6-overlay/s6-rc.d/init-customizations/up \
     /etc/s6-overlay/s6-rc.d/init-customizations/type
 
-# Health check
 HEALTHCHECK --start-period=10m \
     CMD curl --fail http://127.0.0.1:1891 || exit 1
 
-# Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_DESCRIPTION
@@ -75,10 +68,10 @@ ARG BUILD_NAME
 ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
+
 # hadolint ignore=DL3045
 ENV VERSION=${BUILD_VERSION}
 
-# Labels
 LABEL \
     io.hass.name="${BUILD_NAME}" \
     io.hass.description="${BUILD_DESCRIPTION}" \
