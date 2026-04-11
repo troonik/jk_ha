@@ -61,7 +61,7 @@ RUN \
         /root/.cache \
         /root/.npm \
         /root/.nrpmrc \
-        /tmp/*
+        
 
 # Copy root filesystem
 COPY rootfs /
