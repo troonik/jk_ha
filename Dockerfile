@@ -19,7 +19,7 @@ RUN \
         py3-pip \
         python3-dev \
 		musl-dev=1.2.5-r12 \
-    \
+    
 
     && apk add --no-cache \
         git \
@@ -61,7 +61,7 @@ RUN \
         /root/.cache \
         /root/.npm \
         /root/.nrpmrc \
-        
+        /tmp/*
 
 # Copy root filesystem
 COPY rootfs /
@@ -84,6 +84,7 @@ ARG BUILD_NAME
 ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
+#hadolint ignore=DL3045
 ENV VERSION ${BUILD_VERSION}
 
 # Labels
