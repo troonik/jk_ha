@@ -12,14 +12,13 @@ WORKDIR /opt
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-# Setup base
 RUN \
-    apk update && apk upgrade \
-    && apk add --no-cache --virtual .build-dependencies \
-        build-base \
-        linux-headers \
+    apk add --no-cache --virtual .build-dependencies \
+        g++ \
+        make \
+        python3 \
         py3-pip \
-        python3-dev \
+        linux-headers \
     && apk add --no-cache \
         git \
         icu-data-full \
