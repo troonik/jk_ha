@@ -1,0 +1,51 @@
+---
+configuration:
+  # Sezione di configurazione JK-BMS
+  jkbms_path:
+    name: "🟪 JK-BMS → Percorso porta seriale"
+    description: "Percorso della porta seriale a cui è collegato il JK-BMS (Menu: Impostazioni-Hardware-Tutto l'hardware)."
+    
+  jkbms_count:
+    name: "🟪 JK-BMS → Numero di moduli BMS"
+    description: "Numero di moduli JK-BMS da interrogare. Devono essere collegati al bus RS485 (valore: da 1 a 15)."
+    
+  use_gateway:
+    name: "🟨 JK-BMS → Usa Gateway TCP"
+    description: "Abilita la comunicazione tramite un gateway IP (TCP Gateway) invece della porta seriale locale."
+    
+  gateway_ip_port:
+    name: "🟨 JK-BMS → Indirizzo IP Gateway + Porta"
+    description: "Indirizzo IP + porta del gateway di rete per l'accesso remoto al JK-BMS (es. 192.168.1.100:5000)."
+    
+  communication_debug:
+    name: "🔴 JK-BMS → Debug comunicazione"
+    description: "Abilita la visualizzazione dettagliata dei log di comunicazione (per diagnostica o supporto)."
+    
+  bms_broadcasting:
+    name: "🔴 JK-BMS → BMS Broadcasting"
+    description: "In questa modalità, il BMS pubblica autonomamente i dati aggregati. Deve essere impostato come Master (switch su 0000)."
+
+  non_broadcasting_data_interval_s:
+    name: "⏱️ JK-BMS → Intervallo dati senza broadcasting (s)"
+    description: "Ritardo tra ogni ciclo di interrogazione dati quando la modalità broadcasting del BMS è disabilitata. Intervallo consentito: da 1 a 30 secondi."
+    
+  CAN_bus_usage:
+    name: "🔴 JK-BMS → Utilizzo bus CAN"
+    description: "Abilita la comunicazione e la trasmissione dei dati sul bus CAN (se collegato fisicamente)."
+
+  # Sezione di configurazione MQTT
+  mqttadresse_port: 
+    name: "🚩 MQTT → Indirizzo Broker + Porta"
+    description: "Indirizzo del broker MQTT + porta (es. core-mosquitto.local.hass.io:1883 o IP locale + porta)."
+    
+  mqttuser:
+    name: "🚩 MQTT → Nome utente"
+    description: "Nome utente per connettersi al broker MQTT."
+    
+  mqttpass:
+    name: "🚩 MQTT → Password"
+    description: "Password associata all'utente MQTT."
+
+  Send_bip:
+    name: "📊 Utilizzo Add-on"
+    description: "Abilita l'invio di un segnale acustico (beep) all'avvio. Non viene trasmesso alcun dato privato. Il trattamento è conforme al GDPR."
