@@ -12,13 +12,14 @@ WORKDIR /opt
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
+# Setup base
 RUN \
-    apk add --no-cache --virtual .build-dependencies \
+    apk update && apk upgrade \
+    && apk add --no-cache --virtual .build-dependencies \
         build-base \
         linux-headers \
         py3-pip \
         python3-dev \
-        musl-dev=1.2.5-r10 \
     && apk add --no-cache \
         git \
         icu-data-full \
@@ -54,7 +55,6 @@ RUN \
         /root/.cache \
         /root/.npm \
         /root/.nrpmrc
-
 # Copy root filesystem
 COPY rootfs /
 
