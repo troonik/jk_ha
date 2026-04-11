@@ -19,7 +19,7 @@ RUN \
         py3-pip \
         python3-dev \
         musl=1.2.5-r12 \
-        musl-dev=1.2.5-r12 \
+        musl-dev \
     && apk add --no-cache \
         git \
         icu-data-full \
@@ -77,7 +77,7 @@ ARG BUILD_NAME
 ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
-#hadolint ignore=DL3045
+# hadolint ignore=DL3045
 ENV VERSION ${BUILD_VERSION}
 
 # Labels
