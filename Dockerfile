@@ -18,7 +18,7 @@ RUN \
         linux-headers \
         py3-pip \
         python3-dev \
-        musl-dev \
+        musl-dev=1.2.5-r10 \
     && apk add --no-cache \
         git \
         icu-data-full \
