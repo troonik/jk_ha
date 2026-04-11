@@ -1,0 +1,52 @@
+---
+configuration:
+  # JK-BMS Configuration Section
+  jkbms_path:
+    name: "🟪 JK-BMS → Serial Port Path"
+    description: "Path to the serial port where the JK-BMS is connected (Menu: Settings-Hardware-All hardware)."
+    
+  jkbms_count:
+    name: "🟪 JK-BMS → Number of BMS Modules"
+    description: "Number of JK-BMS modules to query. They must be connected to the RS485 bus (value: 1 to 15)."
+    
+  use_gateway:
+    name: "🟨 JK-BMS → Use TCP Gateway"
+    description: "Enable communication via an IP gateway (TCP Gateway) instead of the local serial port."
+    
+  gateway_ip_port:
+    name: "🟨 JK-BMS → Gateway IP Address + Port"
+    description: "IP address + network gateway port for remote access to JK-BMS (e.g. 192.168.1.100:5000)."
+    
+  communication_debug:
+    name: "🔴 JK-BMS → Debug Communication"
+    description: "Enable detailed display of communication logs (for diagnostics or support)."
+    
+  bms_broadcasting:
+    name: "🔴 JK-BMS → BMS Broadcasting"
+    description: "In this mode, the BMS publishes aggregated data by itself. It must be Master (switch to 0000)."
+
+
+  non_broadcasting_data_interval_s:
+    name: "⏱️ JK-BMS → Non-broadcasting data interval (s)"
+    description: "Delay between each data polling cycle when BMS broadcasting mode is disabled. Allowed range: 1 to 30 seconds."
+    
+  CAN_bus_usage:
+    name: "🔴 JK-BMS → CAN Bus Usage"
+    description: "Enable communication and data transmission on the CAN bus (if physically connected)."
+
+  # MQTT Configuration Section
+  mqttadresse_port: 
+    name: "🚩 MQTT → Broker Address + Port"
+    description: "MQTT broker address + port (e.g. core-mosquitto.local.hass.io:1883 or local IP + port)."
+    
+  mqttuser:
+    name: "🚩 MQTT → Username"
+    description: "Username to connect to the MQTT broker."
+    
+  mqttpass:
+    name: "🚩 MQTT → Password"
+    description: "Password associated with the MQTT user."
+
+  Send_bip:
+    name: "📊 Add-on usage"
+    description: "Enable a beep to be sent at start-up. No private data is transmitted. Processing complies with the GDPR."
