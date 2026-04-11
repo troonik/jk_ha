@@ -18,23 +18,20 @@ RUN \
         linux-headers \
         py3-pip \
         python3-dev \
-		musl-dev=1.2.5-r12 \
-    
-
+        musl=1.2.5-r12 \
+        musl-dev=1.2.5-r12 \
     && apk add --no-cache \
         git \
         icu-data-full \
         nginx \
-		nodejs \
-		npm \
+        nodejs \
+        npm \
         openssh-client \
         patch \
         can-utils \
         iproute2 \
         bash \
         mosquitto-clients \
-    \
-
     && npm config set fetch-timeout 300000 \
     && npm config set fetch-retry-mintimeout 20000 \
     && npm config set fetch-retry-maxtimeout 120000 \
@@ -50,18 +47,14 @@ RUN \
         --fetch-retry-mintimeout=20000 \
         --fetch-retry-maxtimeout=120000 \
     && npm rebuild --build-from-source @serialport/bindings-cpp \
-    \
     && npm cache clear --force \
-    \
     && echo -e "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
-    \
     && apk del --no-cache --purge .build-dependencies \
     && rm -fr \
         /etc/nginx \
         /root/.cache \
         /root/.npm \
-        /root/.nrpmrc \
-        /tmp/*
+        /root/.nrpmrc
 
 # Copy root filesystem
 COPY rootfs /
