@@ -1,0 +1,51 @@
+---
+configuration:
+  # Section de configuration du JK-BMS
+  jkbms_path:
+    name: "🟪 JK-BMS → Chemin du port série"
+    description: "Chemin vers le port série où le JK-BMS est connecté (Menu : Paramètres-Matériel-Tout le matériel)."
+    
+  jkbms_count:
+    name: "🟪 JK-BMS → Nombre de modules BMS"
+    description: "Nombre de modules JK-BMS à interroger. Ils doivent être connectés au bus RS485 (valeur : 1 à 15)."
+    
+  use_gateway:
+    name: "🟨 JK-BMS → Utiliser une passerelle TCP"
+    description: "Activer la communication via une passerelle IP (Passerelle TCP) au lieu du port série local."
+    
+  gateway_ip_port:
+    name: "🟨 JK-BMS → Adresse IP de la passerelle + Port"
+    description: "Adresse IP + port de la passerelle réseau pour l'accès à distance au JK-BMS (ex: 192.168.1.100:5000)."
+    
+  communication_debug:
+    name: "🔴 JK-BMS → Débogage de la communication"
+    description: "Activer l'affichage détaillé des journaux de communication (pour le diagnostic ou le support)."
+    
+  bms_broadcasting:
+    name: "🔴 JK-BMS → Diffusion BMS (Broadcasting)"
+    description: "Dans ce mode, le BMS publie lui-même les données agrégées. Il doit être configuré en Maître (commutateur sur 0000)."
+
+  non_broadcasting_data_interval_s:
+    name: "⏱️ JK-BMS → Intervalle de données hors diffusion (s)"
+    description: "Délai entre chaque cycle d'interrogation des données lorsque le mode diffusion du BMS est désactivé. Plage autorisée : 1 à 30 secondes."
+    
+  CAN_bus_usage:
+    name: "🔴 JK-BMS → Utilisation du bus CAN"
+    description: "Activer la communication et la transmission de données sur le bus CAN (si connecté physiquement)."
+
+  # Section de configuration MQTT
+  mqttadresse_port: 
+    name: "🚩 MQTT → Adresse du Broker + Port"
+    description: "Adresse du broker MQTT + port (ex: core-mosquitto.local.hass.io:1883 ou IP locale + port)."
+    
+  mqttuser:
+    name: "🚩 MQTT → Nom d'utilisateur"
+    description: "Nom d'utilisateur pour se connecter au broker MQTT."
+    
+  mqttpass:
+    name: "🚩 MQTT → Mot de passe"
+    description: "Mot de passe associé à l'utilisateur MQTT."
+
+  Send_bip:
+    name: "📊 Utilisation de l'Add-on"
+    description: "Activer l'envoi d'un bip au démarrage. Aucune donnée privée n'est transmise. Le traitement est conforme au RGPD."
