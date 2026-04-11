@@ -18,7 +18,6 @@ RUN \
         linux-headers \
         py3-pip \
         python3-dev \
-        musl=1.2.5-r12 \
         musl-dev \
     && apk add --no-cache \
         git \
